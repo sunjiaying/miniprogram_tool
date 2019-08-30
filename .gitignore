@@ -4,3 +4,4 @@ node_modules/
 yarn.lock
 miniprogram_tool
 miniprogram_tool.exe
+*.zip
