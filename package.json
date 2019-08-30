@@ -1,0 +1,20 @@
+{
+  "name": "miniprogram_tool",
+  "version": "1.0.0",
+  "description": "小程序工具",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "preview": "node main.js --preview"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "arg": "^4.1.1",
+    "chalk": "^2.4.2",
+    "openurl": "^1.1.1",
+    "request": "^2.88.0",
+    "request-progress": "^3.0.0",
+    "unzip2": "^0.2.5"
+  }
+}
