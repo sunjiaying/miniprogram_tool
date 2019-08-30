@@ -5,7 +5,9 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "preview": "node main.js --preview"
+    "preview": "node main.js --preview",
+    "build-win": "nexe main.js -t win32-x64-6.11.2 --verbose -o ./miniprogram_tool.exe",
+    "build-mac": "nexe main.js -t mac-x64-8.4.0 --verbose -o ./miniprogram_tool"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +18,8 @@
     "request": "^2.88.0",
     "request-progress": "^3.0.0",
     "unzip2": "^0.2.5"
+  },
+  "devDependencies": {
+    "nexe": "^3.3.2"
   }
 }

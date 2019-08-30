@@ -2,3 +2,5 @@ www/
 node_modules/
 .DS_Store
 yarn.lock
+miniprogram_tool
+miniprogram_tool.exe
