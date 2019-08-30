@@ -93,6 +93,7 @@ function preview() {
   fs.exists("./www",function(exists){
     if(exists){
       console.log(chalk`{white 正在准备启动web服务...}`);
+      console.log(chalk`{white 预览地址: http://localhost:8080/index.html}`);
       startServer();
       console.log(chalk`{green 自动打开预览页面}`);
       openurl.open("http://localhost:8080/index.html");
