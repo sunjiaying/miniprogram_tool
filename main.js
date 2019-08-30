@@ -8,6 +8,7 @@ const request = require('request');
 const progress = require('request-progress');
 const unzip = require('unzip2');
 const rmdir = require('rmdir');
+const archiver = require('archiver');
 
 const args = arg({
   // Types
@@ -16,12 +17,14 @@ const args = arg({
   '--init': Boolean,
   '--preview': Boolean,
   '--url': String,
+  '--archive': Boolean,
   // Aliases
   '-H': '--help',
   '-V': '--version',
   '-P': '--preview',
   '-U': '--url',
   '-I': '--init',
+  '-A': '--archive',
 });
 // console.log(args);
 
@@ -37,9 +40,11 @@ if (args["--help"]) {
   -P  --preview   预览效果
   -U  --url       初始化时，要下载的zip包
   -I  --init      初始化
+  -Z  --zip       重新打压缩包 archive.zip
   例如:
   ./miniprogram_tool --init --url 'https://marisfrolg.nos-eastchina1.126.net/UPDATE/public/test.zip'
   ./miniprogram_tool --preview
+  ./miniprogram_tool --zip
   `
   );
   return;
@@ -56,6 +61,11 @@ if (args["--init"]) {
 
 if (args["--preview"]) {
   preview();
+  return;
+}
+
+if (args["--archive"]) {
+  archive();
   return;
 }
 
@@ -115,4 +125,29 @@ function startServer() {
       res.end();
     });
   }).listen(8080);
+}
+
+function archive() {
+  fs.exists("./www",function(exists){
+    if(exists){
+      var output = fs.createWriteStream('./archive.zip');
+      var archive = archiver('zip', {
+        zlib: { level: 9 } // Sets the compression level.
+      });
+      output.on('close', function() {
+        console.log(chalk`{green archive.zip文件打包成功}`);
+      });
+      archive.pipe(output);
+      archive.directory('www/', false);
+      // archive.glob('www/*.*');
+      archive.finalize();
+      // console.log(chalk`{white 正在准备启动web服务...}`);
+      // console.log(chalk`{white 预览地址: http://localhost:8080/index.html}`);
+      // startServer();
+      // console.log(chalk`{green 自动打开预览页面}`);
+      // openurl.open("http://localhost:8080/index.html");
+    } else {
+      console.log(chalk`{red www目录不存在，请先用--init参数初始化}`);
+    }
+  });
 }
